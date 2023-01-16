@@ -21,10 +21,6 @@
   ansible.builtin.include_role:
     name: postgres
   vars:
-<<<<<<< HEAD
-=======
-    postgres_name: "{{ paperless_ngx_name }}_postgres" # Remove when instance support merged into Saltbox
->>>>>>> 22aa113 (PaperlessNGX: Add comment)
     postgres_instances: ["{{ paperless_ngx_name }}_postgres"]
     postgres_docker_env_db: "{{ paperless_ngx_name }}"
     postgres_docker_image_tag: "14-alpine"
