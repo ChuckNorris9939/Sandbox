@@ -21,14 +21,6 @@
     mariadb_paths_folder: "{{ docspell_name }}"
     mariadb_paths_location: "{{ server_appdata_path }}/{{ docspell_paths_folder }}/mariadb"
 
-- name: Create docspell database
-  community.mysql.mysql_db:
-    name: "{{ docspell_name }}"
-    login_host: "{{ docspell_name }}_mariadb"
-    login_user: "{{ mariadb_docker_env_user }}"
-    login_password: "{{ mariadb_docker_env_password }}"
-    state: present
-
 - name: Solr Role
   ansible.builtin.include_role:
     name: solr

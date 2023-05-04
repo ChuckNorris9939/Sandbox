@@ -8,11 +8,6 @@
 #########################################################################
 # Repository: https://github.com/Chewbaka69/PlexShare/blob/master/docker-compose.yml
 ---
-- name: Check if db folder exists
-  ansible.builtin.stat:
-    path: "{{ server_appdata_path }}/{{ plexshare_paths_folder }}/mariadb"
-  register: stat_plexshare_db_folder
-
 - name: MariaDB Role
   ansible.builtin.include_role:
     name: mariadb
@@ -21,15 +16,6 @@
     mariadb_docker_image_tag: "latest"
     mariadb_paths_folder: "{{ plexshare_name }}"
     mariadb_paths_location: "{{ server_appdata_path }}/{{ plexshare_paths_folder }}/mariadb"
-
-- name: MariaDB | Create plexshare database
-  community.mysql.mysql_db:
-    name: "{{ plexshare_name }}"
-    login_host: "{{ plexshare_name }}_mariadb"
-    login_user: "{{ mariadb_docker_env_user }}"
-    login_password: "{{ mariadb_docker_env_password }}"
-    state: present
-  when: not stat_plexshare_db_folder.stat.exists
 
 - name: Add DNS record
   ansible.builtin.include_tasks: "{{ resources_tasks_path }}/dns/tasker.yml"
